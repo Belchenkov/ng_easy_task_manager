@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, computed, input } from "@angular/core";
 
 import { DUMMY_USERS } from "../dummy-users";
 import { NgOptimizedImage } from "@angular/common";
@@ -15,13 +15,12 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
   styleUrl: "./user.component.css"
 })
 export class UserComponent {
-  @Input() avatar!: string;
-  @Input() name!: string;
+  avatar = input.required<string>();
+  name = input.required<string>();
 
-  get imagePath(): string {
-    return `assets/users/${this.avatar}`;
-  }
+  imagePath = computed(() => `assets/users/${this.avatar()}`);
 
   onSelectUser(): void {
+
   }
 }
