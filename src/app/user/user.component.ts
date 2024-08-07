@@ -1,7 +1,6 @@
-import { Component, computed, input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 import { DUMMY_USERS } from "../dummy-users";
-import { NgOptimizedImage } from "@angular/common";
 
 const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
 
@@ -9,18 +8,19 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
   selector: "app-user",
   standalone: true,
   templateUrl: "./user.component.html",
-  imports: [
-    NgOptimizedImage
-  ],
   styleUrl: "./user.component.css"
 })
 export class UserComponent {
-  avatar = input.required<string>();
-  name = input.required<string>();
+  @Input({ required: true }) id!: string;
+  @Input({ required: true }) avatar!: string;
+  @Input({ required: true }) name!: string;
+  @Output() select = new EventEmitter<string>();
 
-  imagePath = computed(() => `assets/users/${this.avatar()}`);
+  get imagePath(): string {
+    return `assets/users/${this.avatar}`;
+  }
 
   onSelectUser(): void {
-
+    this.select.emit(this.id);
   }
 }

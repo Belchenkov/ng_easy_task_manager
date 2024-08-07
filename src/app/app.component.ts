@@ -20,4 +20,8 @@ export class AppComponent {
   title = 'Easy Task Manager';
 
   users = DUMMY_USERS;
+
+  onSelectUser(id: string): void {
+
+  }
 }
